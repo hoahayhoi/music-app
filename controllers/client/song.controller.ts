@@ -3,6 +3,7 @@ import { Topic } from "../../models/topic.model";
 import { Song } from "../../models/song.model";
 import { Singer } from "../../models/singer.model";
 import { FavoriteSong } from "../../models/favorite-song.model";
+import unidecode from "unidecode";
 
 export const index = async (req: Request, res: Response) => {
   const slugTopic: string = req.params.slugTopic;
@@ -169,6 +170,36 @@ export const favorite = async (req: Request, res: Response) => {
 
   res.render("client/pages/songs/favorite", {
     pageTitle: "Bài hát yêu thích",
+    songs: songs
+  });
+}
+
+export const search = async (req: Request, res: Response) => {
+  const keyword = `${req.query.keyword}`;
+
+  let keywordRegex = keyword.trim();
+
+  keywordRegex = keywordRegex.replace(/\s+/g, "-"); // replace space to -
+
+  keywordRegex = unidecode(keywordRegex); // make word standard into simbols
+
+  const slugRegex = new RegExp(keywordRegex, "i");
+
+  const songs = await Song.find({
+    slug: slugRegex
+  }).select("slug avatar title like singerId");
+  
+  for (const song of songs) {
+    const infoSinger = await Singer.findOne({
+      _id: song.singerId,
+      deleted: false
+    });
+    song["singerFullName"] = infoSinger ? infoSinger.fullName : "";
+  }
+
+  res.render("client/pages/songs/search", {
+    pageTitle: `Kết quả tìm kiếm: ${keyword}`,
+    keyword: keyword,
     songs: songs
   });
 }
