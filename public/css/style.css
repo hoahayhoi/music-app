@@ -97,6 +97,23 @@
   font-weight: 500;
   color: #585858;
 }
+.song-item .inner-content .inner-time {
+  font-size: 13px;
+  font-weight: 500;
+  color: #585858;
+}
+.song-item .inner-content .inner-heart {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+.song-item .inner-content .inner-heart.active {
+  color: #b90000;
+}
+.song-item .inner-content .inner-heart.active i {
+  font-weight: 900;
+}
 /* End song-item */
 
 
@@ -107,12 +124,14 @@
   margin-bottom: 10px;
   color: #F57F20;
 }
+
 .singer-detail .inner-actions {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 10px;
 }
+
 .singer-detail .inner-actions .inner-action {
   margin-right: 20px;
   margin-bottom: 10px;
@@ -122,13 +141,16 @@
   font-weight: 600;
   color: #646464;
 }
+
 .singer-detail .inner-actions .inner-action i {
   font-size: 16px;
   margin-right: 5px;
 }
+
 .singer-detail .inner-actions .inner-like {
   cursor: pointer;
 }
+
 .singer-detail .inner-actions .inner-like i {
   color: #0059ff;
 }
@@ -136,6 +158,7 @@
 .singer-detail .inner-actions .inner-like.active {
   color: #0059ff;
 }
+
 .singer-detail .inner-actions .inner-like.active i {
   font-weight: 900;
 }
@@ -143,17 +166,29 @@
 .singer-detail .inner-actions .inner-heart {
   cursor: pointer;
 }
+
 .singer-detail .inner-actions .inner-heart i {
   color: #b90000;
 }
+
+.singer-detail .inner-actions .inner-heart.active {
+  color: #b90000;
+}
+
+.singer-detail .inner-actions .inner-heart.active i {
+  font-weight: 900;
+}
+
 .singer-detail .inner-play {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
+
 .singer-detail .inner-play .inner-audio {
   flex: 1;
 }
+
 .singer-detail .inner-avatar {
   width: 100px;
   height: 100px;
@@ -167,6 +202,7 @@
   animation-timing-function: linear;
   animation-play-state: paused;
 }
+
 @keyframes spin {
   from {
     transform:rotate(0deg);
@@ -175,16 +211,19 @@
     transform:rotate(360deg);
   }
 }
+
 .singer-detail .inner-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 .singer-detail .inner-desc {
   border: 1px solid #ddd;
   border-radius: 6px;
   margin-bottom: 20px;
 }
+
 .singer-detail .inner-desc .inner-label {
   font-size: 16px;
   font-weight: 700;
@@ -192,6 +231,7 @@
   padding: 10px 15px;
   border-bottom: 1px solid #ddd;
 }
+
 .singer-detail .inner-desc .inner-text {
   font-size: 14px;
   padding: 10px 15px;

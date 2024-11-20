@@ -1,11 +1,13 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
+
 block main
   .singer-detail
     .container.my-3
       .row
         .col-12
           .inner-title #{song.title}
+
           .inner-actions
             div(class="inner-action inner-time")
               <i class="fa-regular fa-clock"></i> 20/10/2023
@@ -17,17 +19,23 @@ block main
               <i class="fa-regular fa-thumbs-up"></i>
               <span style="margin-right: 2px;">#{song.like}</span>
               | thích
-            div(class="inner-action inner-heart")
+            div(
+              class=("inner-action inner-heart " + (song.favorite ? "active" : ""))
+              button-favorite=song.id
+            )
               <i class="fa-regular fa-heart"></i> Bài hát yêu thích
+
           .inner-play
             .inner-avatar
               img(src=song.avatar)
             .inner-audio
               div(id="aplayer" data-song=song data-singer=singer)
+
           .inner-desc
             .inner-label Mô tả
             .inner-text
               | !{song.description}
+
           .inner-desc
             .inner-label Lời bài hát
             .inner-text
