@@ -15,5 +15,13 @@ if(aplayer) {
     ],
     autoplay: true
   });
+
+  const avatar = document.querySelector(".singer-detail .inner-avatar");
+  ap.on('play', function () {
+    avatar.style.animationPlayState = "running";
+  });
+  ap.on('pause', function () {
+    avatar.style.animationPlayState = "paused";
+  });
 }
 // End Aplayer
