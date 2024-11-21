@@ -175,6 +175,8 @@ export const favorite = async (req: Request, res: Response) => {
 }
 
 export const search = async (req: Request, res: Response) => {
+  const type = req.params.type;
+
   const keyword = `${req.query.keyword}`;
 
   let keywordRegex = keyword.trim();
@@ -184,6 +186,8 @@ export const search = async (req: Request, res: Response) => {
   keywordRegex = unidecode(keywordRegex); // make word standard into simbols
 
   const slugRegex = new RegExp(keywordRegex, "i");
+
+  const songsFinal = [];
 
   const songs = await Song.find({
     slug: slugRegex
@@ -195,11 +199,28 @@ export const search = async (req: Request, res: Response) => {
       deleted: false
     });
     song["singerFullName"] = infoSinger ? infoSinger.fullName : "";
+
+    songsFinal.push({
+      id: song.id,
+      slug: song.slug,
+      avatar: song.avatar,
+      title: song.title,
+      like: song.like,
+      singerId: song.singerId,
+      singerFullName: song["singerFullName"]
+    });
   }
 
-  res.render("client/pages/songs/search", {
-    pageTitle: `Kết quả tìm kiếm: ${keyword}`,
-    keyword: keyword,
-    songs: songs
-  });
+  if(type == "result") {
+    res.render("client/pages/songs/search", {
+      pageTitle: `Kết quả tìm kiếm: ${keyword}`,
+      keyword: keyword,
+      songs: songsFinal
+    });
+  } 
+  else if(type == "suggest") {
+    res.json({
+      songs: songsFinal
+    });
+  }
 }
