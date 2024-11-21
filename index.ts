@@ -7,7 +7,9 @@ import * as database from "./config/database";
 database.connect();
 
 import { routesClient } from "./routes/client/index.route";
-
+import { routesAdmin } from "./routes/admin/index.route";
+import { systemConfig } from "./config/system";
+import path from "path";
 
 const app: Express = express();
 const port: number = 3000;
@@ -22,8 +24,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+// App Local Variables
+app.locals.prefixAdmin = systemConfig.prefixAdmin;
+// TinyMCE
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+routesAdmin(app);
 routesClient(app);
-
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
